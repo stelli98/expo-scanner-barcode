@@ -1,41 +1,28 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { Camera } from "expo-camera";
+import { Image } from "react-native";
 import axios from "axios";
-
-const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
-console.log("device", deviceHeight, deviceWidth);
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(true);
-  const baseUrl = "http://192.168.0.100:3000/api/v1";
+  const baseUrl = "https://playdays-app-be.vercel.app/api/v1";
 
   useEffect(() => {
     (async () => {
       const data = await BarCodeScanner.requestPermissionsAsync();
-      console.log("test", data);
       setHasPermission(data.status === "granted");
     })();
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    console.log("data", data, "url", `${baseUrl}/barcodes/${data}`);
     axios({
       method: "get",
       url: `${baseUrl}/barcodes/${data}`,
     })
       .then((response) => {
-        console.log("res", response.data);
         if (!!response.data.barcode) {
           alert(
             `Bar code with type ${type} and data ${response.data.barcode} has been scanned!`
@@ -72,21 +59,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the Barcode Scanner App!</Text>
-      <Text style={styles.paragraph}>Scan a barcode to start your job.</Text>
+      <Image source={require("./assets/playdays.png")} />
       {renderCamera()}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => setScanned(false)}
-        // disabled={scanned}
-      >
-        <Text style={styles.buttonText}>Scan QR to Start your job</Text>
+      <TouchableOpacity style={styles.button} onPress={() => setScanned(false)}>
+        <Text style={styles.buttonText}>Scan Barcode</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-const opacity = "rgba(0, 0, 0, .6)";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -113,7 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#9775C5",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,

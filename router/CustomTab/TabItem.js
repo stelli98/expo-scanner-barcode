@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import IconList from "../../assets/icons/IconList";
 import IconListActive from "../../assets/icons/IconListActive";
 import IconScan from "../../assets/icons/IconScan";
 import IconScanActive from "../../assets/icons/IconScanActive";
 
-const TabItem = ({ isFocused, options, onPress, onLongPress, label }) => {
+const TabItem = ({ isFocused, onPress, onLongPress, label }) => {
   const Icon = () => {
     if (label === "Scan Barcode") {
       return isFocused ? <IconScanActive /> : <IconScan />;

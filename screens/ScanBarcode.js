@@ -16,21 +16,23 @@ const ScanBarcode = () => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     axios({
       method: "get",
-      url: `${baseUrl}/barcodes/${data}`,
+      url: `${baseUrl}/barcodes?barcodeId=${data}`,
     })
       .then((response) => {
-        if (!!response.data.barcode) {
+        if (!!response.data[0].barcode) {
           alert(
-            `Bar code with type ${type} and data ${response.data.barcode} has been scanned!`
+            `Barcode ${data} berhasil discan. Selamat Bermain sampai dengan ${response.data[0].expired_at} !`
           );
+        } else {
+          alert(`Barcode ${data} tidak ditemukan!`);
         }
       })
       .catch((error) => {
-        alert(`Bar code ${data} can not be found!`);
+        alert(`Barcode ${data} tidak ditemukan!`);
       });
   };
 
@@ -70,6 +72,7 @@ const ScanBarcode = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 30,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -88,7 +91,7 @@ const styles = StyleSheet.create({
     aspectRatio: 0.55,
     overflow: "hidden",
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   camera: {
     flex: 1,
@@ -114,7 +117,6 @@ const styles = StyleSheet.create({
     height: 200,
     width: 300,
     borderWidth: 2,
-    borderColor: "red",
     backgroundColor: "transparent",
   },
 });

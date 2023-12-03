@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "expo-scanner-barcode",
+    "name": "Playdays Barcode Scanner",
     "slug": "expo-scanner-barcode",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,16 +11,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.stelli98.exposcannerbarcode"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.stelli98.exposcannerbarcode"

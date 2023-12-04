@@ -94,10 +94,14 @@ const ListItem = () => {
       method: "get",
       url: `${baseUrl}/barcodes`,
       params: params,
-    }).then((response) => {
-      setData(response.data);
-      setLoading(false);
-    });
+    })
+      .then((response) => {
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
   const handleRefresh = () => {
@@ -215,8 +219,8 @@ const ListItem = () => {
         <Pressable
           style={styles.resetButton}
           onPress={() => {
-            setSelectedStartTime(tempStartTime);
-            setSelectedEndTime(tempEndTime);
+            setSelectedStartTime(new Date(date.setHours(0, 0, 0, 0)));
+            setSelectedEndTime(new Date(date.setHours(23, 59, 59, 0)));
             setSearch("");
             fetchData({ params: {} });
           }}

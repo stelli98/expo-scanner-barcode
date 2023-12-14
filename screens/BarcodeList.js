@@ -5,11 +5,10 @@ import {
   Text,
   View,
   FlatList,
-  SafeAreaView,
   TextInput,
   Pressable,
-  Button,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 
